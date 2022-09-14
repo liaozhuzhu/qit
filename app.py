@@ -19,7 +19,7 @@ import uuid as uuid
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://nrrblmqunrjysa:5176e5f5d9523d4401cddc94d8e9fec780c9d3c346e64597af519aae77fff0f2@ec2-44-209-158-64.compute-1.amazonaws.com:5432/d79tl4mvmmk5o5"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://nrrblmqunrjysa:5176e5f5d9523d4401cddc94d8e9fec780c9d3c346e64597af519aae77fff0f2@ec2-44-209-158-64.compute-1.amazonaws.com:5432/d79tl4mvmmk5o5"
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
 
 UPLOAD_FOLDER = "static/images/"
