@@ -237,7 +237,7 @@ def search():
 @app.route("/admin")
 @login_required
 def admin():
-    if current_user.id == 13:
+    if current_user.id == 1:
         return render_template("admin.html")        
     else:
         flash("Access Denied", category="error")
