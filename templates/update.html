@@ -1,0 +1,32 @@
+{%extends "base.html"%}
+{%block title%}Update {{user_to_update.name}}'s Profile{%endblock%}
+{% block content %}
+{%if current_user.id == user_to_update.id%}
+<h1>Update User: {{user_to_update.name}}</h1>
+<form method="POST" class="form" enctype="multipart/form-data">
+    {{form.hidden_tag()}}
+
+    {{form.name.label(class="form-label")}}
+    {{form.name(class="form-control", autocomplete="off", value=user_to_update.name)}}
+    <br/>
+    {{form.username.label(class="form-label")}}
+    {{form.username(class="form-control", autocomplete="off", value=user_to_update.username)}}
+    <br/>
+    {{form.email.label(class="form-label")}}
+    {{form.email(class="form-control", autocomplete="off", value=user_to_update.email)}}
+    <br/>
+    {{form.about.label(class="form-label")}}
+    <textarea name="about" class="form-control">{{user_to_update.about}}</textarea>
+    <br/>
+
+    {{form.pfp.label(class="form-label")}}
+    {{form.pfp(class="form-control", value=user_to_update.pfp)}}
+    <br/>
+
+    {{form.submit(class="btn-submit")}}
+    <a href="{{url_for('delete', id=user_to_update.id)}}" class="btn-primary-danger">Delete</a>
+</form>
+{%else%}
+<h1>Access Denied</h1>
+{%endif%}
+{% endblock content %}

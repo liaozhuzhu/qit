@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+
+{%block title%}Add a Post{%endblock%}
+
+{%block content%}
+<h1>Create Post</h1>
+<br/>
+<form method="POST" class="form">
+    {{form.hidden_tag()}}
+
+    {{form.title.label(class="form-label")}}
+    {{form.title(class="form-control", autocomplete="off")}}
+    <br/>
+    {{form.content.label(class="form-label")}}
+    {{form.content(class="form-control form-textarea", rows="5", autocomplete="off")}}
+    <br/>
+    {{form.slug.label(class="form-label")}}
+    {{form.slug(class="form-control", autocomplete="off")}}
+    <br/>
+
+    {{form.submit(class="btn-submit")}}
+</form>
+{{ckeditor.load()}}
+{{ckeditor.config(name="content")}}
+{%endblock%}

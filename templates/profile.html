@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+
+{%block content%}
+    <h1>Profile</h1>
+    <div class="container-shadow-profile">
+        <div class="container-inner" id="container-inner-bio">
+            <h2><strong>Name:</strong> {{current_user.name}}</h2>
+            <p><strong>Username:</strong> {{current_user.username}}</p>
+            <p><strong>Email:</strong> {{current_user.email}}</p>
+            {%if current_user.about%}
+                <p><strong>About:</strong> {{current_user.about}}</p>
+            {%endif%}
+            <p><strong>Date Joined:</strong> {{current_user.date_added}}</p>
+            <br/>
+            <a href="{{url_for('update', id=current_user.id)}}" class="btn-primary">Edit</a>
+        </div>
+        <div class="container-inner">
+            <img src="{{url_for('static', filename='images/pfp.png')}}">
+        </div>
+    </div>
+{%endblock%}    

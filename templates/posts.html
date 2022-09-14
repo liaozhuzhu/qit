@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+
+{%block title%}Posts{%endblock%}
+
+{%block content%}
+<form class="form" method="POST" action="{{url_for('search')}}">
+    {{form.hidden_tag()}}
+    <input class="form-control" type="search" placeholder="Search Post" name="searched" autocomplete="off">
+    <button type="submit" class="btn-primary">Search</button>
+</form>
+<h1>QiT Posts</h1>
+{%for post in posts%}
+<div class="container-shadow">
+    <h1>{{post.title}}</h1>
+    <p>{{post.poster.username}}</p>
+    <br/><br/>   
+    <p>{{post.content|safe}}</p>
+    <br/>   
+    <p>{{post.date_posted}}</p>
+    <br/>
+    <a href="{{url_for('post', id=post.id)}}" class="btn-primary">View</a>
+</div>
+{%endfor%}
+{%endblock%}

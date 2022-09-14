@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+
+{%block title%}Posts{%endblock%}
+
+{%block content%}
+<h1>{{post.title}}</h1>
+<div class="container-shadow">
+    <h1>{{post.title}}</h1>
+    <p>{{post.author}}</p>
+    <br/><br/>   
+    <p>{{post.conten|safe}}</p>
+    <br/>   
+    <p>{{post.date_posted}}</p>
+    <br/>
+    {%if post.poster_id == current_user.id%}
+    <a href="{{url_for('edit_post', id=post.id)}}" class="btn-secondary">Edit</a>
+    <a href="{{url_for('delete_post', id=post.id)}}" class="btn-primary-danger">Delete</a>
+    {%else%}    
+    {%endif%}
+</div>
+<a href="{{url_for('posts')}}" class="btn-primary">Back to Posts Section</a>
+{%endblock%}

@@ -1,0 +1,40 @@
+{%extends "base.html"%}
+
+{%block content%}
+    {%if name%}
+    <h1>Name:{{name}}</h1>
+
+    {%else%}
+    <form method="POST" class="form" action="{{ url_for('sign_up')}}">
+        {{form.hidden_tag()}}
+
+        {{form.name.label(class="form-label")}}
+        {{form.name(class="form-control", autocomplete="off", placeholder="Enter Name")}}
+        <br/>
+        {{form.username.label(class="form-label")}}
+        {{form.username(class="form-control", autocomplete="off", placeholder="Enter Email")}}
+        <br/>
+        {{form.email.label(class="form-label")}}
+        {{form.email(class="form-control", autocomplete="off", placeholder="Enter Email")}}
+        <br/>
+        {{form.about.label(class="form-label")}}
+        {{form.about(class="form-control", autocomplete="off", placeholder="About Me")}}
+        <br/>
+        {{form.password_hash.label(class="form-label")}}
+        {{form.password_hash(class="form-control", autocomplete="off", placeholder="Enter Password")}}
+        <br/>
+        {{form.password_hash2.label(class="form-label")}}
+        {{form.password_hash2(class="form-control", autocomplete="off", placeholder="Confirm Password")}}
+        <br/>
+
+        {{form.submit(class="btn-submit")}}
+    </form>
+    <br/>
+    <h1>Current Users: </h1>
+    {%for user in our_users%}
+    {{user.id}}. <a href="{{url_for('update', id=user.id)}}" class="update-link">{{user.name}}</a> - {{user.username}} - {{user.email}} <a href="{{url_for('delete', id=user.id)}}" class="update-link">Delete</a>
+    <br/>
+    {%endfor%}
+
+    {%endif%}
+{%endblock%}

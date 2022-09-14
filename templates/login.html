@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+
+{%block content%}
+    <h1>Login</h1>
+    <form method="POST" class="form">
+        {{form.hidden_tag()}}
+
+        {{form.username.label(class="form-label")}}
+        {{form.username(class="form-control", autocomplete="off", placeholder="Enter Username")}}
+        <br/>
+        {{form.password_hash.label(class="form-label")}}
+        {{form.password_hash(class="form-control", autocomplete="off", placeholder="Enter Password")}}
+        <br/>
+
+        {{form.submit(class="btn-submit")}}
+    </form>
+{%endblock%}
