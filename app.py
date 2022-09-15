@@ -35,7 +35,7 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.query.get(user_id)
+    return Users.query.get(int(user_id))
 
 # ===== Routes =====
 @app.route("/")
