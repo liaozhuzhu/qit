@@ -276,7 +276,7 @@ class Posts(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     slug = db.Column(db.String(255))
     poster_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    likes = db.relationship("Likes", backref="liker")
+    likes = db.relationship("Likes", backref="like")
 
 class Likes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
