@@ -276,7 +276,7 @@ class Posts(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     slug = db.Column(db.String(255))
     poster_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    likes = db.relationship("Likes", backref="like")
+    likes = db.relationship("Likes", backref="post")
 
 class Likes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -293,7 +293,7 @@ class Users(db.Model, UserMixin):
     about = db.Column(db.Text(), nullable=True)
     pfp = db.Column(db.String(200), nullable=True)
     posts = db.relationship("Posts", backref="poster")
-    likes = db.relationship("Likes", backref="user")
+    likes = db.relationship("Likes", backref="poster")
     
     @property
     def password(self):
