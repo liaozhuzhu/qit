@@ -20,8 +20,8 @@ app = Flask(__name__)
 ckeditor = CKEditor(app)
 SECRET_KEY = os.environ.get("SECRET_KEY")
 app.config["SECRET_KEY"] = SECRET_KEY
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://sleybwqekgkjmn:00fe51c9bac967ef60638f29adbc64491e10dc8b0d261275928ffd41121e2ec1@ec2-18-214-35-70.compute-1.amazonaws.com:5432/d84o1sbe7qd9gm"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://sleybwqekgkjmn:00fe51c9bac967ef60638f29adbc64491e10dc8b0d261275928ffd41121e2ec1@ec2-18-214-35-70.compute-1.amazonaws.com:5432/d84o1sbe7qd9gm"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
 
 UPLOAD_FOLDER = "static/images/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
