@@ -20,8 +20,8 @@ app = Flask(__name__)
 ckeditor = CKEditor(app)
 SECRET_KEY = os.environ.get("SECRET_KEY")
 app.config["SECRET_KEY"] = SECRET_KEY
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://sleybwqekgkjmn:00fe51c9bac967ef60638f29adbc64491e10dc8b0d261275928ffd41121e2ec1@ec2-18-214-35-70.compute-1.amazonaws.com:5432/d84o1sbe7qd9gm"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://sleybwqekgkjmn:00fe51c9bac967ef60638f29adbc64491e10dc8b0d261275928ffd41121e2ec1@ec2-18-214-35-70.compute-1.amazonaws.com:5432/d84o1sbe7qd9gm"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
 
 UPLOAD_FOLDER = "static/images/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -35,7 +35,7 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.query.get(int(user_id))
+    return Users.query.get(user_id)
 
 # ===== Routes =====
 @app.route("/")
@@ -51,6 +51,7 @@ def sign_up():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
             user = Users(name=form.name.data, username=form.username.data, email=form.email.data, about=form.about.data, password_hash=hashed_pw)
+            login_user(user)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
@@ -61,8 +62,9 @@ def sign_up():
         form.password_hash.data = ""
         flash("User Added!", category="success")
     
-    our_users = Users.query.order_by(Users.date_added)
-    return render_template("sign_up.html", name=name, our_users=our_users, form=form)
+    # our_users = Users.query.order_by(Users.date_added)
+    # return render_template("sign_up.html", name=name, our_users=our_users, form=form)
+    return render_template("home.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

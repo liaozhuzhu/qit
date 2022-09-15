@@ -1,10 +1,6 @@
 {%extends "base.html"%}
 
 {%block content%}
-    {%if name%}
-    <h1>Name:{{name}}</h1>
-
-    {%else%}
     <form method="POST" class="form" action="{{ url_for('sign_up')}}">
         {{form.hidden_tag()}}
 
@@ -12,7 +8,7 @@
         {{form.name(class="form-control", autocomplete="off", placeholder="Enter Name")}}
         <br/>
         {{form.username.label(class="form-label")}}
-        {{form.username(class="form-control", autocomplete="off", placeholder="Enter Email")}}
+        {{form.username(class="form-control", autocomplete="off", placeholder="Enter Username")}}
         <br/>
         {{form.email.label(class="form-label")}}
         {{form.email(class="form-control", autocomplete="off", placeholder="Enter Email")}}
@@ -29,6 +25,4 @@
 
         {{form.submit(class="btn-submit")}}
     </form>
-    <br/>
-    {%endif%}
 {%endblock%}

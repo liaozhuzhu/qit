@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome to QiT</h1>
+    <div class="container-main" id="home-container">
+        <h1 class="title">Welcome to <span class="name-highlight-primary">Qi</span>T</h1>
+        {%if not current_user.is_authenticated%}
+            <p class="paragraph-primary">QiT doesn't hide behind paywalls or silly subscriptions. In fact, QiT can't even make money if it wanted to. So enjoy and sign up for free!</p>
+            <a class="nav-link btn-primary" href="{{url_for('sign_up')}}">Sign Up</a>
+        {%endif%}
+        <p class="paragraph-copyright">© 2022 Liao Zhu</p>
+    </div>
 {% endblock content%}
