@@ -18,10 +18,11 @@ import uuid as uuid
 # ===== Starter Code ===== 
 app = Flask(__name__)
 ckeditor = CKEditor(app)
+SECRET_KEY = os.environ.get("SECRET_KEY")
 # app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.config["SECRET_KEY"] = "testkeythatissecure2341234"
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://sleybwqekgkjmn:00fe51c9bac967ef60638f29adbc64491e10dc8b0d261275928ffd41121e2ec1@ec2-18-214-35-70.compute-1.amazonaws.com:5432/d84o1sbe7qd9gm"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
+app.config["SECRET_KEY"] = SECRET_KEY
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://sleybwqekgkjmn:00fe51c9bac967ef60638f29adbc64491e10dc8b0d261275928ffd41121e2ec1@ec2-18-214-35-70.compute-1.amazonaws.com:5432/d84o1sbe7qd9gm"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
 
 UPLOAD_FOLDER = "static/images/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -106,21 +107,28 @@ def update(id):
         user_to_update.username = request.form["username"]
         user_to_update.email = request.form["email"]
         user_to_update.about = request.form["about"]
-        user_to_update.pfp = request.files["pfp"]
-        pfp_filename = secure_filename(user_to_update.pfp.filename)
-        pfp_name = str(uuid.uuid1()) + "_" + pfp_filename
         
-        saver = request.files["pfp"]
-        user_to_update.pfp = pfp_name     
-   
-        try:
+        if request.files["pfp"]:
+            user_to_update.pfp = request.files["pfp"]
+            pfp_filename = secure_filename(user_to_update.pfp.filename)
+            pfp_name = str(uuid.uuid1()) + "_" + pfp_filename
+            
+            saver = request.files["pfp"]
+            user_to_update.pfp = pfp_name     
+    
+            try:
+                db.session.commit()
+                saver.save(os.path.join(app.config["UPLOAD_FOLDER"], pfp_name))
+                flash("User Updated Successfully", category="success")
+                return render_template("profile.html")
+            except:
+                flash("User Could Not Be Updated", category="error")
+                return render_template("update.html", form=form, user_to_update=user_to_update)
+        else:
             db.session.commit()
-            saver.save(os.path.join(app.config["UPLOAD_FOLDER"]), pfp_name)
             flash("User Updated Successfully", category="success")
             return render_template("profile.html")
-        except:
-            flash("User Could Not Be Updated", category="error")
-            return render_template("update.html", form=form, user_to_update=user_to_update)
+        
     else:
         return render_template("update.html", form=form, user_to_update=user_to_update)
 

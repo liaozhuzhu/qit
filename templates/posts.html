@@ -18,6 +18,13 @@
     <br/>   
     <p>{{post.date_posted}}</p>
     <br/>
+    <div class="container-inner">
+        {%if post.poster.pfp%}
+        <img class="pfp-small" src="{{url_for('static', filename='images/' + post.poster.pfp)}}">
+        {%else%}
+        <img class="pfp-small" src="{{url_for('static', filename='images/pfp.png')}}">
+        {%endif%}
+    </div>
     <a href="{{url_for('post', id=post.id)}}" class="btn-primary">View</a>
 </div>
 {%endfor%}

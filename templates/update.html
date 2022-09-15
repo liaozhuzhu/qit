@@ -21,6 +21,13 @@
 
     {{form.pfp.label(class="form-label")}}
     {{form.pfp(class="form-control", value=user_to_update.pfp)}}
+    <div class="container-inner">
+        {%if current_user.pfp%}
+        <img class="pfp" src="{{url_for('static', filename='images/' + current_user.pfp)}}">
+        {%else%}
+        <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
+        {%endif%}
+    </div>
     <br/>
 
     {{form.submit(class="btn-submit")}}

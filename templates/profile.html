@@ -15,7 +15,11 @@
             <a href="{{url_for('update', id=current_user.id)}}" class="btn-primary">Edit</a>
         </div>
         <div class="container-inner">
-            <img src="{{url_for('static', filename='images/pfp.png')}}">
+            {%if current_user.pfp%}
+            <img class="pfp" src="{{url_for('static', filename='images/' + current_user.pfp)}}">
+            {%else%}
+            <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
+            {%endif%}
         </div>
     </div>
 {%endblock%}    

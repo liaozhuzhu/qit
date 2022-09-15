@@ -6,6 +6,13 @@
 <h1>{{post.title}}</h1>
 <div class="container-shadow">
     <h1>{{post.title}}</h1>
+    <div class="container-inner">
+        {%if post.poster.pfp%}
+        <img class="pfp-small" src="{{url_for('static', filename='images/' + post.poster.pfp)}}">
+        {%else%}
+        <img class="pfp-small" src="{{url_for('static', filename='images/pfp.png')}}">
+        {%endif%}
+    </div>
     <p>{{post.author}}</p>
     <br/><br/>   
     <p>{{post.content|safe}}</p>
