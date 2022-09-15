@@ -35,7 +35,7 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(user_id):
-	return Users.query.get(int(user_id))
+	return Users.query.get((user_id))
 
 # ===== Routes =====
 @app.route("/")
@@ -59,7 +59,7 @@ def sign_up():
         form.email.data = ""
         form.about.data = ""
         form.password_hash.data = ""
-        login_user(user)
+        login_user(user, remember=True)
         flash("User Added!", category="success")
         return render_template("profile.html")
     
@@ -73,7 +73,7 @@ def login():
         user = Users.query.filter_by(username=form.username.data).first()
         if user:
             if check_password_hash(user.password_hash, form.password_hash.data):
-                login_user(user)
+                login_user(user, remember=True)
                 return redirect(url_for("home"))
             else:
                 flash("Wrong Password, Try Again", category="error")
