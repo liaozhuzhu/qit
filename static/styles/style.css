@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -224,11 +226,80 @@ textarea:focus, input:focus{
   }
 }
 
+/* ===== Posts ===== */
+.form-search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+.search-input {
+    border: 2px solid black;
+    width: 60%;
+}
+
+#post-body {
+    width: 50%;
+}
+
+#post-body p{
+    font-size: 1.75rem;
+}
+
+.title-secondary {
+    font-size: 3rem;
+}
+
+.name-highlight-primary-purple {
+    color: #8338ec;
+    font-size: 5rem;
+}
+
+#post-title {
+    font-size: 3rem;
+}
+
+.container-post-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.post-username {
+    font-size: 1rem;
+}
+
+.post-date {
+    font-size: .6rem;
+}
+
+#post-footer {
+    justify-content: left;
+    margin: 0;
+}
+
+@media only screen and (max-width: 900px) 
+{
+  #post-body {
+    text-align: center;
+    align-items: center;
+    width: 100%;
+  }
+  .container-post-inner {
+    align-items: center;
+  }
+  #post-footer {
+    justify-content: center;
+  }
+}
+
 /* ===== Post ===== */
 .container-shadow {
     margin: 10px;
     padding: 50px;
     box-shadow: 5px 10px 18px #888888;
+    width: 100%;
 }
 
 .form-textarea {
@@ -277,6 +348,10 @@ textarea:focus, input:focus{
     opacity: 80%;
 }
 
+.like-icon {
+    margin: 5px;
+}
+
 /* ===== Profile ===== */
 .container-shadow-profile {
     margin: 10px;
@@ -291,6 +366,7 @@ textarea:focus, input:focus{
     margin: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #container-inner-bio {
