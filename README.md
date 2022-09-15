@@ -2,7 +2,7 @@
 
 ## Features to Work On
 * Styling (Prioritizing Functionality > Styling as of now)
-* Sets
+* Comments
 * Admin Page
 * Minor Improvements
 
