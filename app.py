@@ -35,7 +35,7 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.query.get(user_id)
+    return Users.query.get(int(user_id))
 
 # ===== Routes =====
 @app.route("/")
@@ -250,23 +250,23 @@ def admin():
         flash("Access Denied", category="error")
         return redirect(url_for("profile"))
     
-@app.route("/like/<int:id>", methods=["POST"])
-def like(id):
-    post_to_like = Posts.query.filter_by(id=id).first()
-    like = Likes.query.filter_by(liker=current_user.id, post_id=id).first()
-    if not post_to_like:
-        # flash("Post Does Not Exist", category="error")
-        return jsonify({"error":"Post Does Not Exist"}, 400)
-    elif like:
-        db.session.delete(like)
-        db.session.commit()
-    else:
-        like = Likes(liker=current_user.id, post_id=id)
-        db.session.add(like)
-        db.session.commit()
+# @app.route("/like/<int:id>", methods=["POST"])
+# def like(id):
+#     post_to_like = Posts.query.filter_by(id=id).first()
+#     like = Likes.query.filter_by(liker=current_user.id, post_id=id).first()
+#     if not post_to_like:
+#         # flash("Post Does Not Exist", category="error")
+#         return jsonify({"error":"Post Does Not Exist"}, 400)
+#     elif like:
+#         db.session.delete(like)
+#         db.session.commit()
+#     else:
+#         like = Likes(liker=current_user.id, post_id=id)
+#         db.session.add(like)
+#         db.session.commit()
         
-    # return redirect(url_for("posts"))       
-    return jsonify({"likes":len(post_to_like.likes), "liked":current_user.id in map(lambda x: x.liker, post_to_like.likes)})
+#     # return redirect(url_for("posts"))       
+#     return jsonify({"likes":len(post_to_like.likes), "liked":current_user.id in map(lambda x: x.liker, post_to_like.likes)})
 
 # ===== Models =====
 class Posts(db.Model):
@@ -276,12 +276,12 @@ class Posts(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     slug = db.Column(db.String(255))
     poster_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    likes = db.relationship("Likes", backref="post")
+    # likes = db.relationship("Likes", backref="post")
 
-class Likes(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    liker = db.Column(db.Integer, db.ForeignKey("users.id"))
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+# class Likes(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     liker = db.Column(db.Integer, db.ForeignKey("users.id"))
+#     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

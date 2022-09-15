@@ -25,7 +25,7 @@
         <img class="pfp-small" src="{{url_for('static', filename='images/pfp.png')}}">
         {%endif%}
     </div>
-    <div>
+    <!--{%comment%}<div>
         <a href="{{url_for('post', id=post.id)}}" class="btn-primary">View</a>
         {%if current_user.is_authenticated%}
         {% if current_user.id in post.likes|map(attribute="liker")|list %}
@@ -43,7 +43,8 @@
         {% endif %}
         <span id="likes-count-{{post.id}}">{{post.likes|length}}</span>
         {%endif%}
-    </div>
+        {% endcomment %}
+    </div>-->
 </div>
 {%endfor%}
 {%endblock%}
