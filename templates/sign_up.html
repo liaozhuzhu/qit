@@ -1,28 +1,40 @@
 {%extends "base.html"%}
 
 {%block content%}
-    <form method="POST" class="form" action="{{ url_for('sign_up')}}">
-        {{form.hidden_tag()}}
-
-        {{form.name.label(class="form-label")}}
-        {{form.name(class="form-control", autocomplete="off", placeholder="Enter Name")}}
-        <br/>
-        {{form.username.label(class="form-label")}}
-        {{form.username(class="form-control", autocomplete="off", placeholder="Enter Username")}}
-        <br/>
-        {{form.email.label(class="form-label")}}
-        {{form.email(class="form-control", autocomplete="off", placeholder="Enter Email")}}
-        <br/>
-        {{form.about.label(class="form-label")}}
-        {{form.about(class="form-control", autocomplete="off", placeholder="About Me")}}
-        <br/>
-        {{form.password_hash.label(class="form-label")}}
-        {{form.password_hash(class="form-control", autocomplete="off", placeholder="Enter Password")}}
-        <br/>
-        {{form.password_hash2.label(class="form-label")}}
-        {{form.password_hash2(class="form-control", autocomplete="off", placeholder="Confirm Password")}}
-        <br/>
-
-        {{form.submit(class="btn-submit")}}
-    </form>
+    <div class="main-container" id="form-container">
+        <div class="container-inner" id="form-hero-container">
+            <h1 class="title">Enjoying <span class="name-highlight-primary">Qi</span>T?</h1>
+            <p class="paragraph-primary">Consider Starring This <a href="https://github.com/liaozhuzhu/qit" class="link-pink" target="_blank">Repository</a></p>
+        </div>
+        <div class="form-inner-container">
+            <div class="link-container">
+                <a href="{{url_for('login')}}" class="inactive-link">Login</a>
+                <p class="active-link"><strong>Sign Up</strong></p>
+            </div>
+            <form method="POST" class="form" id="sign-up-form" action="{{ url_for('sign_up')}}">
+                {{form.hidden_tag()}}
+        
+                {{form.name.label(class="form-label")}}
+                {{form.name(class="form-control", autocomplete="off", placeholder="Enter Name")}}
+                <br/>
+                {{form.username.label(class="form-label")}}
+                {{form.username(class="form-control", autocomplete="off", placeholder="Enter Username")}}
+                <br/>
+                {{form.email.label(class="form-label")}}
+                {{form.email(class="form-control", autocomplete="off", placeholder="Enter Email")}}
+                <br/>
+                {{form.about.label(class="form-label")}}
+                {{form.about(class="form-control", autocomplete="off", placeholder="About Me")}}
+                <br/>
+                {{form.password_hash.label(class="form-label")}}
+                {{form.password_hash(class="form-control", autocomplete="off", placeholder="Enter Password")}}
+                <br/>
+                {{form.password_hash2.label(class="form-label")}}
+                {{form.password_hash2(class="form-control", autocomplete="off", placeholder="Confirm Password")}}
+                <br/>
+        
+                {{form.submit(class="btn-primary")}}
+            </form>
+        </div>
+    </div>
 {%endblock%}

@@ -62,9 +62,8 @@ def sign_up():
         form.password_hash.data = ""
         flash("User Added!", category="success")
     
-    # our_users = Users.query.order_by(Users.date_added)
-    # return render_template("sign_up.html", name=name, our_users=our_users, form=form)
-    return render_template("home.html")
+    our_users = Users.query.order_by(Users.date_added)
+    return render_template("sign_up.html", name=name, our_users=our_users, form=form)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

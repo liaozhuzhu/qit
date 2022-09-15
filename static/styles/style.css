@@ -23,6 +23,11 @@ a {
 textarea {
     resize: none;
 }
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
 /*======= Flash Message =======*/
 .alert-div {
     position: absolute;
@@ -67,7 +72,7 @@ textarea {
 }
 
 .navbar-name {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-right: auto;
 }
 
@@ -77,8 +82,9 @@ textarea {
     align-items: center;
 }
 
-.name-highlight {
+.name-highlight-secondary {
     color: #f15bb5;
+    font-size: 2.5rem;
 }
 
 .btn-primary:hover {
@@ -126,23 +132,96 @@ textarea {
     margin: 10px;
 }
 
-/* ===== Form ===== */
+/* ===== SignUp / Login ===== */
+#form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#form-hero-container {
+    background-image: url("/static/images/form-hero.jpg");
+    margin: 0;
+    width: 50%;
+    height: 705px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.link-pink {
+    color: #f15bb5;
+}
+
+.link-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-block: 20px;
+    width: 100%;
+}
+
+.inactive-link {
+    font-size: 1.5rem;
+    color: rgb(137, 137, 137);
+}
+
+.active-link {
+    font-size: 1.5rem;
+    color: #f15bb5;
+}
+
+.form-inner-container {
+    width: 50%;
+    flex-direction: column;
+}
+
 .form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 50px; 
+    align-items: center; 
+    height: auto;
+}
+
+#sign-up-form {
+    margin-block: 30px;
 }
 
 .form-label {
-    margin-left: 10%;
+    line-height: 1.5rem;
 }
 
 .form-control {
-    height: 30px;
+    height: 45px;
     padding: 5px;
     width: 80%;
-    margin-left: 10%;
+    border: none;
+    border-bottom: 2px solid black;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    color: white;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 900px) 
+{
+  #form-hero-container {
+    display: none;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .form-control {
+    height: 30px;
+    width: 100%;
+  }
+  
+  .form-label {
+    font-size: .8rem;
+  }
 }
 
 /* ===== Post ===== */
@@ -230,9 +309,4 @@ textarea {
     height: 75px;
     object-fit:cover;
     border-radius: 50%;
-}
-
-/* ===== TEMP ===== */
-.update-link {
-    color: blue;
 }

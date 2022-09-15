@@ -1,17 +1,28 @@
 {%extends "base.html"%}
 
 {%block content%}
-    <h1>Login</h1>
-    <form method="POST" class="form">
-        {{form.hidden_tag()}}
+<div class="main-container" id="form-container">
+    <div class="container-inner" id="form-hero-container">
+        <h1 class="title">Enjoying <span class="name-highlight-primary">Qi</span>T?</h1>
+        <p class="paragraph-primary">Consider Starring This <a href="https://github.com/liaozhuzhu/qit" class="link-pink" target="_blank">Repository</a></p>
+    </div>
+    <div class="form-inner-container">
+        <div class="link-container">
+            <p class="active-link"><strong>Login</strong></p>
+            <a href="{{url_for('sign_up')}}" class="inactive-link">Sign Up</a>
+        </div>
+        <form method="POST" class="form">
+            {{form.hidden_tag()}}
 
-        {{form.username.label(class="form-label")}}
-        {{form.username(class="form-control", autocomplete="off", placeholder="Enter Username")}}
-        <br/>
-        {{form.password_hash.label(class="form-label")}}
-        {{form.password_hash(class="form-control", autocomplete="off", placeholder="Enter Password")}}
-        <br/>
+            {{form.username.label(class="form-label")}}
+            {{form.username(class="form-control", autocomplete="off", placeholder="Enter Username")}}
+            <br/>
+            {{form.password_hash.label(class="form-label")}}
+            {{form.password_hash(class="form-control", autocomplete="off", placeholder="Enter Password")}}
+            <br/>
 
-        {{form.submit(class="btn-submit")}}
-    </form>
+            {{form.submit(class="btn-primary")}}
+        </form>
+    </div>
+</div>
 {%endblock%}
