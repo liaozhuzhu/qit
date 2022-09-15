@@ -35,7 +35,7 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.query.get(user_id)
+    return Users.query.get(int(user_id))
 
 # ===== Routes =====
 @app.route("/")
@@ -51,7 +51,6 @@ def sign_up():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
             user = Users(name=form.name.data, username=form.username.data, email=form.email.data, about=form.about.data, password_hash=hashed_pw)
-            login_user(user)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
