@@ -146,6 +146,10 @@ textarea {
     color: white;
 }
 
+.icon-link {
+    color: black;
+}
+
 .btn-submit:hover {
     opacity: 80%;
 }
@@ -175,6 +179,13 @@ textarea {
     width: 200px;
     height: 200px;
     object-fit: cover;
+}
+
+.pfp-small {
+    width: 75px;
+    height: 75px;
+    object-fit:cover;
+    border-radius: 50%;
 }
 
 /* ===== TEMP ===== */

@@ -30,11 +30,5 @@
         {{form.submit(class="btn-submit")}}
     </form>
     <br/>
-    <h1>Current Users: </h1>
-    {%for user in our_users%}
-    {{user.id}}. <a href="{{url_for('update', id=user.id)}}" class="update-link">{{user.name}}</a> - {{user.username}} - {{user.email}} <a href="{{url_for('delete', id=user.id)}}" class="update-link">Delete</a>
-    <br/>
-    {%endfor%}
-
     {%endif%}
 {%endblock%}

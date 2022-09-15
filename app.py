@@ -3,7 +3,7 @@ from email.policy import default
 from inspect import Attribute
 from re import S
 from sre_constants import SUCCESS
-from flask import Flask, render_template, flash, request, redirect, url_for
+from flask import Flask, render_template, flash, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
 import os
@@ -137,7 +137,7 @@ def delete(id):
     name = None
     form = UserForm()
     user_to_delete = Users.query.get_or_404(id)
-    if user_to_delete.id == current_user.id:
+    if user_to_delete.id == current_user.id or current_user.id == 1:
         try:
             db.session.delete(user_to_delete)
             db.session.commit()
@@ -209,7 +209,7 @@ def edit_post(id):
 @login_required
 def delete_post(id):
     post_to_delete = Posts.query.get_or_404(id)
-    if current_user.id == post_to_delete.poster.id:
+    if current_user.id == post_to_delete.poster.id or current_user.id == 1:
         try: 
             db.session.delete(post_to_delete)
             db.session.commit()
@@ -250,6 +250,24 @@ def admin():
     else:
         flash("Access Denied", category="error")
         return redirect(url_for("profile"))
+    
+@app.route("/like/<int:id>", methods=["POST"])
+def like(id):
+    post_to_like = Posts.query.filter_by(id=id).first()
+    like = Likes.query.filter_by(liker=current_user.id, post_id=id).first()
+    if not post_to_like:
+        # flash("Post Does Not Exist", category="error")
+        return jsonify({"error":"Post Does Not Exist"}, 400)
+    elif like:
+        db.session.delete(like)
+        db.session.commit()
+    else:
+        like = Likes(liker=current_user.id, post_id=id)
+        db.session.add(like)
+        db.session.commit()
+        
+    # return redirect(url_for("posts"))       
+    return jsonify({"likes":len(post_to_like.likes), "liked":current_user.id in map(lambda x: x.liker, post_to_like.likes)})
 
 # ===== Models =====
 class Posts(db.Model):
@@ -259,6 +277,12 @@ class Posts(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     slug = db.Column(db.String(255))
     poster_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    likes = db.relationship("Likes", backref="post")
+
+class Likes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    liker = db.Column(db.Integer, db.ForeignKey("users.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -270,6 +294,7 @@ class Users(db.Model, UserMixin):
     about = db.Column(db.Text(), nullable=True)
     pfp = db.Column(db.String(200), nullable=True)
     posts = db.relationship("Posts", backref="poster")
+    likes = db.relationship("Likes", backref="user")
     
     @property
     def password(self):

@@ -25,7 +25,25 @@
         <img class="pfp-small" src="{{url_for('static', filename='images/pfp.png')}}">
         {%endif%}
     </div>
-    <a href="{{url_for('post', id=post.id)}}" class="btn-primary">View</a>
+    <div>
+        <a href="{{url_for('post', id=post.id)}}" class="btn-primary">View</a>
+        {%if current_user.is_authenticated%}
+        {% if current_user.id in post.likes|map(attribute="liker")|list %}
+        <i
+          class="fa-solid fa-heart"
+          id="like-button-{{post.id}}"
+          onclick="like({{post.id}})"
+        ></i>
+        {% else %}
+        <i
+          class="fa-regular fa-heart"
+          id="like-button-{{post.id}}"
+          onclick="like({{post.id}})"
+        ></i>
+        {% endif %}
+        <span id="likes-count-{{post.id}}">{{post.likes|length}}</span>
+        {%endif%}
+    </div>
 </div>
 {%endfor%}
 {%endblock%}
