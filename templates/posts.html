@@ -7,7 +7,7 @@
   <form class="form-search" method="POST" action="{{url_for('search')}}">
     {{form.hidden_tag()}}
     <input class="search-input" type="search" placeholder="Search Post" name="searched" autocomplete="off">
-    <button type="submit" class="btn-primary">Search</button>
+    <button type="submit" class="btn-primary" id="btn-search">Search</button>
   </form>
   <h1 class="title-secondary"><span class="name-highlight-primary-purple">Qi</span>T Posts</h1>
   {%for post in posts%}
@@ -45,6 +45,34 @@
           <span id="likes-count-{{post.id}}">{{post.likes|length}}</span>
           {%endif%}
       </div>
+      <div class="collapse" id="comments-{{post.id}}">
+        <div class="card">
+          <div class="card-body" id="comments-expanded-{{post.id}}">
+            {%for comment in post.comments%}
+            <div class="comment-text" id="comments-delete-{{comment.id}}">
+              <div class="container-comment-text">
+                <strong>{{comment.commentor.username}}</strong>: {{comment.text}}
+              </div>
+              {%if current_user.id == comment.commentor_id or current_user.id == post.poster_id%}
+                <a href="/delete-comment/{{comment.id}}">X</a>
+                <!--<p class="delete-comment" onclick="deleteComment({{comment.id}})">X</p>-->
+              {%endif%}
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+      {%if post.comments|length > 0%}
+      <h6 class="comment-toggle" onclick="commentToggle({{post.id}})">View {{post.comments|length}} Comments</h6>
+      {%else%}
+      <h6>No Comments</h6>
+      {%endif%}
+      <br/>
+      <form class="comment-form" method="POST" action="/create-comment/{{post.id}}">
+        {{form.hidden_tag()}}
+        {{form.text(class="post-comment", autocomplete="off", placeholder="Comment Something")}}
+        {{form.submit(class="btn-primary", id="btn-comment")}}
+      </form>
   </div>  
 {%endfor%}
 </div>

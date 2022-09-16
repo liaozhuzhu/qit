@@ -26,6 +26,10 @@ class PostForm(FlaskForm):
     content = CKEditorField("Content", validators=[DataRequired()], widget=TextArea())
     slug = StringField("Slug", validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+class CommentForm(FlaskForm):
+    text = StringField("Comment")
+    submit = SubmitField("Comment")
     
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
@@ -33,5 +37,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Submit")
     
 class SearchForm(FlaskForm):
+    text = StringField("") #in order to avoid jinja error
     searched = StringField("Searched", validators=[DataRequired()])
     submit = SubmitField("Submit")

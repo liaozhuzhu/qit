@@ -7,7 +7,7 @@ from flask import Flask, render_template, flash, request, redirect, url_for, jso
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
 import os
-from forms import NameForm, UserForm, PostForm, LoginForm, SearchForm
+from forms import NameForm, UserForm, PostForm, LoginForm, SearchForm, CommentForm
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
@@ -20,8 +20,8 @@ app = Flask(__name__)
 ckeditor = CKEditor(app)
 SECRET_KEY = os.environ.get("SECRET_KEY")
 app.config["SECRET_KEY"] = SECRET_KEY
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://xpnsmhccilpvqs:5abd2b2b4fae4b6ee3ad0b8fa43c133f09016292dd8d1b6bac7768abf00eaf52@ec2-34-200-205-45.compute-1.amazonaws.com:5432/d8kqv7b2k9q5ga"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://xpnsmhccilpvqs:5abd2b2b4fae4b6ee3ad0b8fa43c133f09016292dd8d1b6bac7768abf00eaf52@ec2-34-200-205-45.compute-1.amazonaws.com:5432/d8kqv7b2k9q5ga"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
 
 UPLOAD_FOLDER = "static/images/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -169,6 +169,8 @@ def add_post():
         db.session.add(post)
         db.session.commit()
         flash("Post Uploaded!", category="success")
+        posts = Posts.query.order_by(Posts.date_posted)
+        return render_template("posts.html", posts=posts)
         
     return render_template("add_post.html", form=form)    
 
@@ -274,6 +276,48 @@ def like(id):
     # return redirect(url_for("posts"))       
     return jsonify({"likes":len(post_to_like.likes), "liked":current_user.id in map(lambda x: x.liker, post_to_like.likes)})
 
+@app.route("/create-comment/<int:id>", methods=["POST"])
+@login_required
+def create_comment(id):
+    text = request.form.get("text")
+    form = CommentForm()
+    
+    if not text:
+        flash("Comment Cannot be Empty", category="error")
+        
+    else:
+        post = Posts.query.filter_by(id=id)
+        
+        if post:
+            comment = Comments(text=text, commentor_id=current_user.id, post_id=id)
+            db.session.add(comment)
+            db.session.commit()
+            
+        else:
+            flash("Post Does Not Exist", category="error")
+    
+    form.text.data = ""
+        
+    posts = Posts.query.order_by(Posts.date_posted)
+    return render_template("posts.html", posts=posts, form=form)
+
+@app.route('/delete-comment/<int:id>', methods=["GET"])
+@login_required
+def delete_comment(id):
+    form = CommentForm()
+    comment = Comments.query.filter_by(id=id).first()
+    if not comment:
+        flash("Comment Does Not Exist", category="error")
+        # return jsonify({"error":"Comment Does Not Exist"}, 400)
+    elif current_user.id != comment.commentor.id and current_user.id != comment.post.poster_id:
+        flash("Access Denied", category="error")
+    else:
+        db.session.delete(comment)
+        db.session.commit()
+        
+    posts = Posts.query.order_by(Posts.date_posted)
+    return render_template("posts.html", posts=posts, form=form)
+    # return jsonify({})
 # ===== Models =====
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -283,11 +327,20 @@ class Posts(db.Model):
     slug = db.Column(db.String(255))
     poster_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     likes = db.relationship("Likes", backref="post")
+    comments = db.relationship("Comments", backref="post")
 
 class Likes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     liker = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    
+class Comments(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(100), nullable=False)
+    date_commented = db.Column(db.DateTime, default=datetime.utcnow)
+    commentor_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+
     
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -299,7 +352,7 @@ class Users(db.Model, UserMixin):
     about = db.Column(db.Text(), nullable=True)
     pfp = db.Column(db.String(200), nullable=True)
     posts = db.relationship("Posts", backref="poster")
-    # likes = db.relationship("Likes", backref="poster")
+    comments = db.relationship("Comments", backref="commentor")
     
     @property
     def password(self):

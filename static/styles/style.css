@@ -30,6 +30,14 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+i {
+    margin: 5px;
+}
+
+i:hover {
+    cursor: pointer;
+}
+
 /*======= Flash Message =======*/
 .alert-div {
     position: absolute;
@@ -105,6 +113,7 @@ textarea:focus, input:focus{
 #home-container {
     height: 705px;
     background-image: url("/static/images/hero.jpg");
+    object-fit: cover;
     overflow: hidden;
 }
 
@@ -201,11 +210,6 @@ textarea:focus, input:focus{
     font-size: 1rem;
 }
 
-.btn-primary {
-    color: white;
-    cursor: pointer;
-}
-
 @media only screen and (max-width: 900px) 
 {
   #form-hero-container {
@@ -231,6 +235,7 @@ textarea:focus, input:focus{
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 50px;
 }
 
@@ -238,6 +243,12 @@ textarea:focus, input:focus{
     border: 2px solid black;
     width: 45%;
     padding: 5px;
+    height: 50px;
+}
+
+#btn-search {
+    border-radius: 0px 4px 4px 0px;
+    height: 50px;
 }
 
 #post-body {
@@ -280,6 +291,38 @@ textarea:focus, input:focus{
     margin: 0;
 }
 
+.collapse {
+    display: none;
+}
+
+.comment-toggle {
+    color: black;
+}
+
+.comment-toggle:hover {
+    cursor: pointer;
+}
+
+.comment-text {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.comment-text a {
+    color: red;
+    margin-left: auto;
+}
+
+.delete-comment {
+    color: red;
+    margin-left: auto;
+}
+
+.delete-comment:hover {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 900px) 
 {
   #post-body {
@@ -313,7 +356,10 @@ textarea:focus, input:focus{
     border-radius: 4px; 
     border: none;
     width: 100px;
-    margin: 5px;
+    margin-right: 5px;
+    margin-block: 5px;
+    color: white;
+    cursor: pointer;
 }
 
 .btn-primary-danger {
@@ -355,6 +401,23 @@ textarea:focus, input:focus{
 
 .like-icon {
     margin: 5px;
+}
+
+.post-comment {
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.comment-form {
+    display: flex;
+    align-items: center;
+}
+
+#btn-comment {
+    height: 50px;
+    border-radius: 0px 4px 4px 0px;
 }
 
 /* ===== Profile ===== */
@@ -414,4 +477,20 @@ textarea:focus, input:focus{
     flex-direction: column;
     align-items: center;
   }
+}
+
+/* ===== Create Post ===== */
+.post-input {
+    width: 100%;
+    box-shadow: 0px 2.5px 2.5px 0px #888888;
+    border-radius: 4px;
+    height: 50px;
+    font-size: 1.25rem;
+    padding-inline: 5px;
+}
+
+#cke_content {
+    width: 100%;
+    border-radius: 4px;
+    border: 2px solid black;
 }
