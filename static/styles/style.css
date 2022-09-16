@@ -67,7 +67,22 @@ i:hover {
     background-color: lightgreen;
 }
 
-/*======= Navbar =======*/
+/* ===== 404 ===== */
+.container-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title-error {
+    margin: 25px;
+    font-size: 3rem;
+    color: #8338ec;
+}
+
+
+/* ===== Navbar ===== */
 .navbar {
     display: flex;
     justify-content: space-around;
