@@ -43,6 +43,36 @@
             <span id="likes-count-{{post.id}}">{{post.likes|length}}</span>
             {%endif%}
         </div>
+        <div class="collapse" id="comments-{{post.id}}">
+          <div class="card">
+            <div class="card-body" id="comments-expanded-{{post.id}}">
+              {%for comment in post.comments%}
+              <div class="comment-text" id="comments-delete-{{comment.id}}">
+                <div class="container-comment-text">
+                  <h6 class="username-highlight-primary-purple comment-h6" id="comment-username">{{comment.commentor.username}}</h6> : <h6 class="comment-h6">{{comment.text}}</h6>
+                </div>
+                {%if current_user.id == comment.commentor_id or current_user.id == post.poster_id%}
+                  <a href="/delete-comment/{{comment.id}}"><i class="fa-solid fa-xmark"></i></a>
+                  <!--<p class="delete-comment" onclick="deleteComment({{comment.id}})">X</p>-->
+                {%endif%}
+              </div>
+              {%endfor%}
+            </div>
+          </div>
+        </div>
+        {%if post.comments|length > 0%}
+        <h6 class="comment-toggle" onclick="commentToggle({{post.id}})">View {{post.comments|length}} Comments</h6>
+        {%else%}
+        <h6>No Comments</h6>
+        {%endif%}
+        <br/>
+        {%if current_user.is_authenticated%}
+        <form class="comment-form" method="POST" action="/create-comment/{{post.id}}">
+          {{form.hidden_tag()}}
+          {{form.text(class="post-comment", autocomplete="off", placeholder="Comment Something")}}
+          {{form.submit(class="btn-primary", id="btn-comment")}}
+        </form>
+        {%endif%}
     </div>  
     <a href="{{url_for('posts')}}" class="btn-primary">Back</a>
 </div>

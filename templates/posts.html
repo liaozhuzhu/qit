@@ -51,7 +51,7 @@
             {%for comment in post.comments%}
             <div class="comment-text" id="comments-delete-{{comment.id}}">
               <div class="container-comment-text">
-                <strong>{{comment.commentor.username}}</strong>: {{comment.text}}
+                <h6 class="username-highlight-primary-purple comment-h6" id="comment-username">{{comment.commentor.username}}</h6> : <h6 class="comment-h6">{{comment.text}}</h6>
               </div>
               {%if current_user.id == comment.commentor_id or current_user.id == post.poster_id%}
                 <a href="/delete-comment/{{comment.id}}"><i class="fa-solid fa-xmark"></i></a>

@@ -312,7 +312,6 @@ i:hover {
     display: flex;
     justify-content: left;
     align-items: center;
-    border-bottom: 1px solid black;
     margin: 5px;
 }
 
@@ -425,6 +424,21 @@ i:hover {
 #btn-comment {
     height: 50px;
     border-radius: 0px 4px 4px 0px;
+}
+
+.container-comment-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.username-highlight-primary-purple {
+    font-size: 1rem;
+    color: #8338ec;
+}
+
+.comment-h6 {
+    margin-inline: 5px;
 }
 
 /* ===== Profile ===== */
