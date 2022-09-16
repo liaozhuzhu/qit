@@ -2,6 +2,7 @@
 
 ## Features to Work On
 * Styling (Prioritizing Functionality > Styling as of now)
+* Viewing Other Users Profiles
 * Comments
 * Admin Page
 * Minor Improvements
