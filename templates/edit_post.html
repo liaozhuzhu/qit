@@ -2,22 +2,25 @@
 {%block title%}Edit Post{%endblock%}
 
 {%block content%}
-<form method="POST" class="form">
-    {{form.hidden_tag()}}
-
-    {{form.title.label(class="form-label")}}
-    {{form.title(class="form-control", autocomplete="off")}}
+<div class="container-main">
+    <h1 class="title-secondary">Edit Post</h1>
     <br/>
-    {{form.content.label(class="form-label")}}
-    {{form.content(class="form-control form-textarea", rows="5", autocomplete="off")}}
-    <br/>
-    {{form.slug.label(class="form-label")}}
-    {{form.slug(class="form-control", autocomplete="off")}}
-    <br/>
-
-    {{form.submit(class="btn-submit")}}
-</form>
-<a href="{{url_for('post', id=id)}}" class="btn-primary">Go Back</a>
-{{ckeditor.load()}}
-{{ckeditor.config(name="content")}}
+    <form method="POST" class="form">
+        {{form.hidden_tag()}}
+    
+        {{form.title.label(class="form-label")}}
+        {{form.title(class="post-input", autocomplete="off")}}
+        <br/>
+        {{form.content.label(class="form-label")}}
+        {{form.content(class="post-input form-textarea")}}
+        <br/>
+        {{form.slug.label(class="form-label")}}
+        {{form.slug(class="post-input", autocomplete="off")}}
+        <br/>
+    
+        {{form.submit(class="btn-primary")}}
+    </form>
+    {{ckeditor.load()}}
+    {{ckeditor.config(name="content")}}
+</div>
 {%endblock%}
