@@ -167,7 +167,6 @@ i:hover {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-block: 20px;
     width: 100%;
 }
 
@@ -184,6 +183,7 @@ i:hover {
 .form-inner-container {
     width: 50%;
     flex-direction: column;
+    padding: 0;
 }
 
 .form {
