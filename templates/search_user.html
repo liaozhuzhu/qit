@@ -3,6 +3,7 @@
 
 {%block content%}
 <div class="container-main">
+    {%if users%}
     {%for user in users %}
     <div class="container-profile container-search-user" id="profile-head">
         <h2>{{user.name}}</h2>
@@ -16,6 +17,9 @@
             {%endif%}
             <p><strong>Date Joined:</strong> {{user.date_added}}</p>
             <br/>
+            {%if current_user == 1%}
+                <a href="{{url_for('update', id=current_user.id)}}" class="btn-primary">Edit</a>
+            {%endif%}
         </div>
         <div class="container-inner">
             {%if user.pfp%}
@@ -26,5 +30,8 @@
         </div>
     </div>
     {%endfor%}
+    {%else%}
+    <h6>No User Found</h6>
+    {%endif%}
     <a href="{{url_for('profile')}}" class="btn-primary">Back</a>
 {%endblock%}
