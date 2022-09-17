@@ -1,10 +1,7 @@
 # QiT
 
 ## Features to Work On
-* ~~Viewing Other Users Profiles~~
-* ~~Comments~~
-* Admin Page
-* Minor Improvements
+* Clicking poster's username brings you to their profile
 
 ## Priority Issues
 * Commenting Actions Refresh Page
