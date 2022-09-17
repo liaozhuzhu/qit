@@ -1,7 +1,7 @@
 {%extends "base.html"%}
 {%block title%}Update {{user_to_update.name}}'s Profile{%endblock%}
 {% block content %}
-{%if current_user.id == user_to_update.id%}
+{%if current_user.id == user_to_update.id or current_user.id == 1%}
 <h1>Update User: {{user_to_update.name}}</h1>
 <form method="POST" class="form" enctype="multipart/form-data">
     {{form.hidden_tag()}}
