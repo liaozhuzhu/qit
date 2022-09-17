@@ -126,10 +126,14 @@ i:hover {
 }
 
 #home-container {
-    height: 93vh;
+    min-height: 93vh;
     background-image: url("/static/images/hero.jpg");
     object-fit: cover;
     overflow: hidden;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .title {
@@ -158,6 +162,41 @@ i:hover {
     margin: 10px;
 }
 
+/* ===== About Me ===== */
+.container-about {
+    background-image: linear-gradient(#a770b1, #c474ed);
+    padding: 50px;
+    min-height: 97vh;
+}
+
+.about-title {
+    margin-top: 100px;
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+}
+
+.about-desc {
+    margin: 50px;
+    font-size: 1.5rem;
+}
+
+.name-highlight-tertiary {
+    color: white;
+}
+
+.container-about-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.about-disclaimer {
+    font-size: .75rem;
+}
+
 /* ===== SignUp / Login ===== */
 #form-container {
     display: flex;
@@ -169,7 +208,7 @@ i:hover {
     background-image: url("/static/images/form-hero.jpg");
     margin: 0;
     width: 50%;
-    height: 93vh;
+    min-height: 93vh;
     flex-direction: column;
     align-items: center;
 }
