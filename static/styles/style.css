@@ -128,7 +128,6 @@ i:hover {
 #home-container {
     min-height: 93vh;
     background-image: url("/static/images/hero.jpg");
-    object-fit: cover;
     overflow: hidden;
     background-attachment: fixed;
     background-position: center;
@@ -195,6 +194,19 @@ i:hover {
 
 .about-disclaimer {
     font-size: .75rem;
+    text-align: center;
+}
+
+@media only screen and (max-width: 900px) 
+{
+  .container-profile {
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-desc {
+    font-size: 1rem;
+    text-align: center;
+  }
 }
 
 /* ===== SignUp / Login ===== */
@@ -395,6 +407,13 @@ i:hover {
   }
   #post-footer {
     justify-content: center;
+  }
+  .form-search {
+    flex-direction: column;
+  }
+  .search-input {
+    width: 80%;
+    font-size: .65rem;
   }
 }
 

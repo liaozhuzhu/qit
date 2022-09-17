@@ -1,15 +1,16 @@
 {%extends "base.html"%}
 
 {%block content%}
+<div class="container-main">
     <form class="form-search" method="POST" action="{{url_for('search_user')}}">
         {{form.hidden_tag()}}
         <input class="search-input" type="search" placeholder="Search Other Users (enter case sensitive username)" name="searched" autocomplete="off">
         <button type="submit" class="btn-primary" id="btn-search">Search</button>
     </form>
-    <div class="container-profile" id="profile-head">
+    <div class="container-profile container-search-user" id="profile-head">
         <h2>{{current_user.name}}</h2>
     </div>
-    <div class="container-profile">
+    <div class="container-profile container-search-user">
         <div class="container-profile-inner">
             <p><strong>Username:</strong> {{current_user.username}}</p>
             <p><strong>Email:</strong> {{current_user.email}}</p>
@@ -28,4 +29,5 @@
             {%endif%}
         </div>
     </div>
+</div>
 {%endblock%}    
