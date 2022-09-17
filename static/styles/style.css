@@ -126,7 +126,7 @@ i:hover {
 }
 
 #home-container {
-    height: 705px;
+    height: 93vh;
     background-image: url("/static/images/hero.jpg");
     object-fit: cover;
     overflow: hidden;
@@ -169,7 +169,7 @@ i:hover {
     background-image: url("/static/images/form-hero.jpg");
     margin: 0;
     width: 50%;
-    height: 705px;
+    height: 93vh;
     flex-direction: column;
     align-items: center;
 }
