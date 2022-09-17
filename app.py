@@ -97,6 +97,21 @@ def logout():
 def profile():
     return render_template("profile.html")
 
+@app.route("/user/<int:id>", methods=["GET", "POST"])
+def user(id):
+    post = Posts.query.get_or_404(id)
+    return render_template("post.html", post=post)
+
+@app.route('/search-user', methods=["POST"])
+def search_user():
+    form = SearchForm()
+    users = Users.query
+    if form.validate_on_submit():
+        user.searched = form.searched.data
+        users = users.filter(Users.username.like("%" + user.searched + "%"))
+        users = users.order_by(Users.username).all()
+    return render_template("search_user.html", form=form, users=users)
+
 @app.route("/update/<int:id>", methods=["GET", "POST"])
 @login_required
 def update(id):   
@@ -202,7 +217,7 @@ def edit_post(id):
         flash("Post Updated", category="success")
         return redirect(url_for("post", id=post.id))
     
-    if current_user.id == post.poster.id:
+    if current_user.id == post.poster.id or current_user.id == 1:
         form.title.data = post.title
         form.slug.data = post.slug
         form.content.data = post.content
