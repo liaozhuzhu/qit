@@ -18,7 +18,7 @@
             <p><strong>Date Joined:</strong> {{user.date_added}}</p>
             <br/>
             {%if current_user.id == 1%}
-                <a href="{{url_for('update', id=current_user.id)}}" class="btn-primary">Edit</a>
+                <a href="{{url_for('update', id=user.id)}}" class="btn-primary">Edit</a>
             {%endif%}
         </div>
         <div class="container-inner">
