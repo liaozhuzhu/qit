@@ -1,9 +1,8 @@
 # QiT
 
 ## Features to Work On
-* Styling (Prioritizing Functionality > Styling as of now)
 * Viewing Other Users Profiles
-* Comments
+* ~~Comments~~
 * Admin Page
 * Minor Improvements
 
