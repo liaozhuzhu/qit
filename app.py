@@ -301,8 +301,8 @@ def create_comment(id):
     form = CommentForm()
     text = request.form.get("text")    
     if not text:
-        # flash("Comment Cannot be Empty", category="error")
-        return jsonify({"error":"Comment Cannot Be Empty"}, 400)
+        flash("Comment Cannot be Empty", category="error")
+        # return jsonify({"error":"Comment Cannot Be Empty"}, 400)
     else:
         post = Posts.query.filter_by(id=id)
         
@@ -313,29 +313,33 @@ def create_comment(id):
             
         else:
             flash("Post Does Not Exist", category="error")
+            # return jsonify({"error":"Post Does Not Exist"}, 400)
     
     form.text.data = ""
         
     posts = Posts.query.order_by(Posts.date_posted)
     return render_template("posts.html", posts=posts, form=form)
+    # return jsonify({"comment":text})
 
-@app.route('/delete-comment/<int:id>', methods=["GET"])
+@app.route('/delete-comment/<int:id>', methods=["GET", "POST"])
 @login_required
 def delete_comment(id):
-    form = CommentForm()
     comment = Comments.query.filter_by(id=id).first()
     if not comment:
         flash("Comment Does Not Exist", category="error")
         # return jsonify({"error":"Comment Does Not Exist"}, 400)
+    
     elif current_user.id != comment.commentor.id and current_user.id != comment.post.poster_id:
         flash("Access Denied", category="error")
+        # return jsonify({"error":"Access Denied"}, 400)
     else:
         db.session.delete(comment)
         db.session.commit()
         
     posts = Posts.query.order_by(Posts.date_posted)
-    return render_template("posts.html", posts=posts, form=form)
-    # return jsonify({})
+    return render_template("posts.html", posts=posts)
+    # return jsonify({"comments" : len(post.comments), "deleted" : comment not in map(lambda x : x.comment.commentor, post.comments )})
+
 # ===== Models =====
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)

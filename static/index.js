@@ -29,11 +29,17 @@ function commentToggle(postId) {
 }
 
 // function deleteComment(commentId) {
-//   const commentDelete = document.getElementById(`comments-delete-${commentId}`);
+//   const commentDeleteBtn = document.getElementById(`comment-delete-button-${commentId}`);
+//   const commentToDelete = document.getElementById(`comments-delete-${commentId}`);
+//   console.log("before", commentToDelete);
 //   fetch(`/delete-comment/${commentId}`, { method: "POST" })
-//     .then((res) => res.json())
-//     .then(() => {
-//       commentDelete.style.display = "none";
-//     })
-//     .catch((e) => alert("Could not delete comment"));
+//   .then((res) => res.json())
+//   .then((data) => {
+//     if (data["deleted"]) {
+//       commentToDelete.style.display = "none";
+//     }
+//     else {
+//       return console.log("returned");
+//     }
+//   }).catch((e) => alert("Could Not Delete Comment"));
 // }
