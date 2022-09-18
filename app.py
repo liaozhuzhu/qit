@@ -20,8 +20,8 @@ app = Flask(__name__)
 ckeditor = CKEditor(app)
 SECRET_KEY = os.environ.get("SECRET_KEY")
 app.config["SECRET_KEY"] = SECRET_KEY
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://xpnsmhccilpvqs:5abd2b2b4fae4b6ee3ad0b8fa43c133f09016292dd8d1b6bac7768abf00eaf52@ec2-34-200-205-45.compute-1.amazonaws.com:5432/d8kqv7b2k9q5ga"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://xpnsmhccilpvqs:5abd2b2b4fae4b6ee3ad0b8fa43c133f09016292dd8d1b6bac7768abf00eaf52@ec2-34-200-205-45.compute-1.amazonaws.com:5432/d8kqv7b2k9q5ga"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:#LzHawkeye21@localhost/users"
 
 UPLOAD_FOLDER = "static/images/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -99,8 +99,8 @@ def profile():
 
 @app.route("/user/<int:id>", methods=["GET", "POST"])
 def user(id):
-    post = Posts.query.get_or_404(id)
-    return render_template("post.html", post=post)
+    user = Users.query.get_or_404(id)
+    return render_template("user.html", user=user)
 
 @app.route('/search-user', methods=["POST"])
 def search_user():
@@ -298,12 +298,11 @@ def like(id):
 @app.route("/create-comment/<int:id>", methods=["POST"])
 @login_required
 def create_comment(id):
-    text = request.form.get("text")
     form = CommentForm()
-    
+    text = request.form.get("text")    
     if not text:
-        flash("Comment Cannot be Empty", category="error")
-        
+        # flash("Comment Cannot be Empty", category="error")
+        return jsonify({"error":"Comment Cannot Be Empty"}, 400)
     else:
         post = Posts.query.filter_by(id=id)
         

@@ -1,0 +1,32 @@
+{%extends "base.html"%}
+{%block title%}{{user.username}}'s Profile{%endblock%}
+
+{%block content%}
+<div class="container-main">
+    <h1 class="page-title"><span class="name-highlight-primary-purple">{{user.username}}'s</span> Profile</h1>
+    <div class="container-profile container-search-user" id="profile-head">
+        <h2>{{user.name}}</h2>
+    </div>
+    <div class="container-profile container-search-user">
+        <div class="container-profile-inner">
+            <p><strong>Username:</strong> {{user.username}}</p>
+            <p><strong>Email:</strong> {{user.email}}</p>
+            {%if user.about%}
+                <p><strong>About:</strong> {{user.about}}</p>
+            {%endif%}
+            <p><strong>Date Joined:</strong> {{user.date_added}}</p>
+            <br/>
+            {%if current_user.id == 1%}
+                <a href="{{url_for('update', id=user.id)}}" class="btn-primary">Edit</a>
+            {%endif%}
+        </div>
+        <div class="container-inner">
+            {%if user.pfp%}
+            <img class="pfp" src="{{url_for('static', filename='images/' + current_user.pfp)}}">
+            {%else%}
+            <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
+            {%endif%}
+        </div>
+    </div>
+    <a href="{{url_for('posts')}}" class="btn-primary">Back</a>
+{%endblock%}

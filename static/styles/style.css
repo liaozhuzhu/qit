@@ -331,7 +331,6 @@ i:hover {
 
 .name-highlight-primary-purple {
     color: #8338ec;
-    font-size: 5rem;
 }
 
 #post-title {
@@ -348,6 +347,10 @@ i:hover {
     font-size: 1rem;
 }
 
+.username-link {
+    color: #8338ec;
+}
+
 .post-date {
     font-size: .6rem;
 }
@@ -359,6 +362,13 @@ i:hover {
 
 .collapse {
     display: none;
+    margin-top: 15px;
+    border-radius: 4px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.comments {
     margin-top: 15px;
     border-radius: 4px;
     border: 1px solid black;
@@ -393,6 +403,10 @@ i:hover {
 
 .delete-comment:hover {
     cursor: pointer;
+}
+
+.like-disclaimer {
+    margin: 10px;
 }
 
 @media only screen and (max-width: 900px) 
@@ -563,6 +577,10 @@ i:hover {
     height: 75px;
     object-fit:cover;
     border-radius: 50%;
+}
+
+.page-title {
+    margin-top: 50px;
 }
 
 @media only screen and (max-width: 900px) 
