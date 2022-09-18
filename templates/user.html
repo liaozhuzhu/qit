@@ -22,7 +22,7 @@
         </div>
         <div class="container-inner">
             {%if user.pfp%}
-            <img class="pfp" src="{{url_for('static', filename='images/' + current_user.pfp)}}">
+            <img class="pfp" src="{{url_for('static', filename='images/' + user.pfp)}}">
             {%else%}
             <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
             {%endif%}
