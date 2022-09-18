@@ -2,6 +2,7 @@
 {%block title%}Update {{user_to_update.name}}'s Profile{%endblock%}
 {% block content %}
 {%if current_user.id == user_to_update.id or current_user.id == 1%}
+<div class="container-main">
 <h1>Update User: {{user_to_update.name}}</h1>
 <form method="POST" class="form" enctype="multipart/form-data">
     {{form.hidden_tag()}}
@@ -20,7 +21,7 @@
     <br/>
 
     {{form.pfp.label(class="form-label")}}
-    {{form.pfp(class="form-control", value=user_to_update.pfp)}}
+    {{form.pfp(class="form-control", id="file-input", value=user_to_update.pfp)}}
     <div class="container-inner">
         {%if current_user.pfp%}
         <img class="pfp" src="{{url_for('static', filename='images/' + current_user.pfp)}}">
@@ -36,4 +37,5 @@
 {%else%}
 <h1>Access Denied</h1>
 {%endif%}
+</div>
 {% endblock content %}

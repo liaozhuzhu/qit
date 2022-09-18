@@ -11,6 +11,7 @@
   </form>
   <h1 class="title-secondary"><span class="name-highlight-primary-purple">Qi</span>T Posts</h1>
   {%for post in posts%}
+  {%if post.poster.id%}
   <div class="container-shadow" id="post-body">
       <h1 class="name-highlight-primary-purple" id="post-title">{{post.title|title}}</h1>
       <br/><br/>   
@@ -101,7 +102,8 @@
         {{form.submit(class="btn-primary", id="btn-comment")}}
       </form>
       {%endif%}
-  </div>  
+  </div> 
+  {%endif%} 
 {%endfor%}
 </div>
 {%endblock%}
