@@ -24,11 +24,11 @@
         <div class="container-inner">
             <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
         </div>
-        <!-- {%if user.pfp%}
+        <!-- {%comment%}{%if user.pfp%}
             <img class="pfp" src="{{url_for('static', filename='images/' + current_user.pfp)}}">
             {%else%}
             <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
-            {%endif%} -->
+            {%endif%}{%endcomment%} -->
     </div>
     {%endfor%}
     {%else%}
