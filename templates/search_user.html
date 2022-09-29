@@ -24,11 +24,6 @@
         <div class="container-inner">
             <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
         </div>
-        <!-- {%comment%}{%if user.pfp%}
-            <img class="pfp" src="{{url_for('static', filename='images/' + current_user.pfp)}}">
-            {%else%}
-            <img class="pfp" src="{{url_for('static', filename='images/pfp.png')}}">
-            {%endif%}{%endcomment%} -->
     </div>
     {%endfor%}
     {%else%}
